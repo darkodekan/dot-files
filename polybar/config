@@ -1,0 +1,119 @@
+[bar/mybar]
+modules-left = start bspwm 
+modules-right = date weather backlight pulseaudio wifi shutdown
+font-0 = "FiraCode Nerd Font:weight=bold:pixelsize=10;2"
+font-1 = "Symbola:weight=bold:pixelsize=10;2"
+tray-position = right
+background = "#cc000000"
+height = 25
+tray-maxsize = 15
+tray-padding = 15
+separator = "│"
+bottom = false
+#border-size = 2
+#border-color = #3f3f3f
+padding-left = 1
+padding-right = 2
+module-margin = 1
+width = 68%
+offset-x = 16%
+offset-y = 7
+[module/date]
+type = internal/date
+date = "%H:%M %a %d/%m%" 
+format =  <label>
+label = %date%
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+enable-click = true
+enable-scroll = false
+label-occupied-foreground = #ffffff
+label-focused-foreground = #ffffff
+label-empty-foreground = #ffffff
+label-focused-padding-right = 1
+label-occupied-padding-right = 1
+label-empty-padding-right = 1
+
+label-focused-padding-left = 1
+label-occupied-padding-left = 1
+label-empty-padding-left = 1
+
+label-focused = ●
+label-occupied = ◉   
+label-empty = ○
+
+[module/start]
+type = custom/text
+content = "  "
+click-left = rofi -show run -theme theme
+
+[module/shutdown]
+type = custom/text
+content = " ⏼ "
+click-left = rofi -show run -theme theme
+
+[module/pulseaudio]
+
+type = internal/pulseaudio
+use-ui-max = false
+interval = 5
+format-volume = <ramp-volume> <label-volume>
+label-muted = 🔇
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+
+
+[module/wireless-network]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+udspeed-minwidth = 5
+accumulate-stats = true
+unknown-as-up = true
+format-connected = <ramp-signal>  <label-connected>
+format-disconnected = <label-disconnected>
+format-packetloss = <animation-packetloss> <label-connected>
+label-connected = %essid%
+label-disconnected =   Disconnected  
+
+ramp-signal-0 =  
+
+animation-packetloss-0 = ⚠
+animation-packetloss-1 = 📶
+animation-packetloss-framerate = 500
+
+[module/backlight]
+type = internal/backlight
+
+card = intel_backlight
+format = <ramp> <label>
+label = %percentage%%
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+bar-width = 10
+bar-indicator = |
+bar-fill = ─
+bar-empty = ─
+
+[module/wifi]
+type = custom/script
+exec = /home/darko/.config/polybar/wifi.sh
+interval = 3
+format = <label>
+label =   %output%
+click-right = nmcli d disconnect wlp2s0 &
+click-left = nmcli d connect wlp2s0 &
+
+[module/weather]
+type = custom/script
+exec = ansiweather -l Selenca -f 1 -a false -s true -u metric | awk '{print $9" "$7" "$8}' | cut -d '/' -f 1
+tail = true
+interval = 900
+format = <label>
+label = %output%°C
