@@ -11,5 +11,6 @@ cp  ~/.bashrc ~/Documents/config_files/
 cp  ~/.bash_profile ~/Documents/config_files/
 cp  ~/.xinitrc ~/Documents/config_files/
 cp -rf /etc/X11/xorg.conf.d ~/Documents/config_files/
+cp ~/.Xdefaults ~/Documents/config_files/
 
 

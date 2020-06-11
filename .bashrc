@@ -20,3 +20,4 @@ cd ~/Documents
 alias start_tomcat="sudo /usr/share/tomcat9/bin/startup.sh"
 alias stop_tomcat="sudo /usr/share/tomcat9/bin/shutdown.sh"
 alias start_eclipse="/home/darko/Documents/Programming/eclipse/eclipse"
+alias rsp="vim /home/darko/Desktop/Raspored"
